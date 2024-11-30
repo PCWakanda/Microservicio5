@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
@@ -8,11 +7,11 @@
         <version>3.1.4</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>vv</groupId>
+    <groupId>org.example</groupId>
     <artifactId>Microservicio5</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0.0</version>
     <name>Microservicio5</name>
-    <description>Microservicio5</description>
+    <description>Microservicio para gestionar datos específicos</description>
     <url>https://github.com/orgexample/microservicio5</url>
     <licenses>
         <license>
