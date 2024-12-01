@@ -12,16 +12,18 @@ public class Event implements Serializable {
     private String type;
     private String source;
     private String timestamp;
+    private String subtype;
 
     // No-argument constructor
     public Event() {
     }
 
-    public Event(UUID id, String type, String source, String timestamp) {
+    public Event(UUID id, String type, String source, String timestamp, String subtype) {
         this.id = id;
         this.type = type;
         this.source = source;
         this.timestamp = timestamp;
+        this.subtype = subtype;
     }
 
     // Getters
@@ -39,5 +41,9 @@ public class Event implements Serializable {
 
     public String getTimestamp() {
         return timestamp;
+    }
+
+    public String getSubtype() {
+        return subtype;
     }
 }

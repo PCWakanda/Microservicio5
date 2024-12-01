@@ -53,15 +53,23 @@ public class EventController {
         Flux.interval(Duration.ofSeconds(4))
                 .subscribe(tick -> {
                     if (random.nextDouble() > 0.25) {
-                        int eventCount = random.nextInt(3) + 1;
+                        int eventCount = Math.min(random.nextInt(3) + 1, 5);
                         for (int i = 0; i < eventCount; i++) {
                             String cameraId = "Camera-" + (random.nextInt(10) + 1);
-                            Event event = new Event(UUID.randomUUID(), "camera", cameraId, OffsetDateTime.now().toString());
+                            String[] subtypes = {"robo", "accidente", "aglomeracion"};
+                            String subtype = subtypes[random.nextInt(subtypes.length)];
+                            Event event = new Event(UUID.randomUUID(), "camera", cameraId, OffsetDateTime.now().toString(), subtype);
                             cameraEvents.add(event);
                             eventRepository.save(event);
                             cameraSink.tryEmitNext(event);
                             rabbitTemplate.convertAndSend("cameraQueue", event);
                         }
+                    } else {
+                        String cameraId = "Camera-" + (random.nextInt(10) + 1);
+                        Event event = new Event(UUID.randomUUID(), "camera", cameraId, OffsetDateTime.now().toString(), "none");
+                        cameraEvents.add(event);
+                        eventRepository.save(event);
+                        cameraSink.tryEmitNext(event);
                     }
                 });
     }
@@ -70,15 +78,23 @@ public class EventController {
         Flux.interval(Duration.ofSeconds(4))
                 .subscribe(tick -> {
                     if (random.nextDouble() > 0.25) {
-                        int eventCount = random.nextInt(3) + 1;
+                        int eventCount = Math.min(random.nextInt(3) + 1, 5);
                         for (int i = 0; i < eventCount; i++) {
                             String droneId = "Drone-" + (random.nextInt(5) + 1);
-                            Event event = new Event(UUID.randomUUID(), "drone", droneId, OffsetDateTime.now().toString());
+                            String[] subtypes = {"desastre natural", "accidente", "incendio"};
+                            String subtype = subtypes[random.nextInt(subtypes.length)];
+                            Event event = new Event(UUID.randomUUID(), "drone", droneId, OffsetDateTime.now().toString(), subtype);
                             droneEvents.add(event);
                             eventRepository.save(event);
                             droneSink.tryEmitNext(event);
                             rabbitTemplate.convertAndSend("droneQueue", event);
                         }
+                    } else {
+                        String droneId = "Drone-" + (random.nextInt(5) + 1);
+                        Event event = new Event(UUID.randomUUID(), "drone", droneId, OffsetDateTime.now().toString(), "none");
+                        droneEvents.add(event);
+                        eventRepository.save(event);
+                        droneSink.tryEmitNext(event);
                     }
                 });
     }

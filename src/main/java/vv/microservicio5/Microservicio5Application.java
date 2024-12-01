@@ -11,5 +11,8 @@ public class Microservicio5Application {
         ApplicationContext context = SpringApplication.run(Microservicio5Application.class, args);
         MasterScheduler masterScheduler = context.getBean(MasterScheduler.class);
         masterScheduler.startSequentialFlows();
+
+        EventProcessor eventProcessor = context.getBean(EventProcessor.class);
+        eventProcessor.startLogging();
     }
 }
