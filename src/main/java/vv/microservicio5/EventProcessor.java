@@ -27,28 +27,30 @@ public class EventProcessor {
     public void startLogging() {
         Flux.interval(Duration.ofSeconds(4))
                 .subscribe(tick -> {
-                    int cameraEventsCount = cameraEventList.size();
-                    int droneEventsCount = droneEventList.size();
+                    int cameraEventsCount = Math.min(cameraEventList.size(), 15);
+                    int droneEventsCount = Math.min(droneEventList.size(), 15 - cameraEventsCount);
                     int totalEventsCount = cameraEventsCount + droneEventsCount;
 
                     StringBuilder sb = new StringBuilder();
                     sb.append("--------tic ").append(tick).append("------\n");
 
                     sb.append("Camera Events:\n");
-                    for (Event event : cameraEventList) {
+                    for (int i = 0; i < cameraEventsCount; i++) {
+                        Event event = cameraEventList.get(i);
                         sb.append("Camera Event: ").append(event.getSource())
                                 .append(", Subtype: ").append(event.getSubtype())
                                 .append(", Timestamp: ").append(event.getTimestamp()).append("\n");
                     }
-                    cameraEventList.clear();
+                    cameraEventList.subList(0, cameraEventsCount).clear();
 
                     sb.append("Drone Events:\n");
-                    for (Event event : droneEventList) {
+                    for (int i = 0; i < droneEventsCount; i++) {
+                        Event event = droneEventList.get(i);
                         sb.append("Drone Event: ").append(event.getSource())
                                 .append(", Subtype: ").append(event.getSubtype())
                                 .append(", Timestamp: ").append(event.getTimestamp()).append("\n");
                     }
-                    droneEventList.clear();
+                    droneEventList.subList(0, droneEventsCount).clear();
 
                     sb.append("Total Camera Events: ").append(cameraEventsCount).append("\n");
                     sb.append("Total Drone Events: ").append(droneEventsCount).append("\n");
