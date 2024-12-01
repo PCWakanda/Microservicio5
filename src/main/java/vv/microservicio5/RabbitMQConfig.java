@@ -9,16 +9,11 @@ public class RabbitMQConfig {
 
     @Bean
     public Queue cameraQueue() {
-        return new Queue("cameraQueue", true);
+        return new Queue("cameraQueue", false);
     }
 
     @Bean
     public Queue droneQueue() {
-        return new Queue("droneQueue", true);
-    }
-
-    @Bean
-    public Queue eventQueue() {
-        return new Queue("eventQueue", true);
+        return new Queue("droneQueue", false);
     }
 }
